@@ -2,7 +2,7 @@
 
 ## Visão Geral
 
-O módulo `img2row` implementa a operação **Im2Col** (*image to column*) em hardware, transformando uma janela de imagem 2D em uma matriz de colunas usada tipicamente como pré-processamento para convolução via multiplicação de matrizes (GEMM). É parametrizável em largura de dados, tamanho do kernel e tamanho da janela de entrada.
+O módulo `img2col` implementa a operação **Im2Col** (*image to column*) em hardware, transformando uma janela de imagem 2D em uma matriz de colunas usada tipicamente como pré-processamento para convolução via multiplicação de matrizes (GEMM). É parametrizável em largura de dados, tamanho do kernel e tamanho da janela de entrada.
 
 ## Parâmetros
 
