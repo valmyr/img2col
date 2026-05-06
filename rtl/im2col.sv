@@ -35,6 +35,7 @@ logic [WIDTH-1:0] window [SIZE_KER*SIZE_KER-1:0];
 logic [WIDTH*SIZE_KER*SIZE_KER-1:0] window_f;
 enum {IDLE, TRANSFORM_IMAGE2COL,DONE} currentStateTransformUnit,nextStateTransformUnit;
 
+logic [((OUT_SIZE_NORM - SIZE_KER*SIZE_KER) * WIDTH) - 1 : 0] zero_pad;
 
 generate
       genvar i_win, j_win;
@@ -53,12 +54,12 @@ always_ff@(posedge clk)begin
             row <= row_next;
             col <= col_next;
             patch_idx <= (OUT_SIZE)*row + col;
-            {>>(WIDTH){colout[patch_idx_next]}} <= {{(OUT_SIZE_NORM-SIZE_KER*SIZE_KER){WIDTH{1'b0}}},window_f};
+            {>>(WIDTH){colout[patch_idx_next]}} <= {zero_pad, window_f};
             currentStateTransformUnit <= nextStateTransformUnit;
       end
 end
 
-
+assign zero_pad = '0;
 assign patch_idx_next = (OUT_SIZE)*row + col;
 assign is_row_oob = (row >OUT_SIZE - 2);
 assign is_col_oob = (col >OUT_SIZE - 2);
@@ -123,6 +124,5 @@ always_comb case(currentStateTransformUnit)
       end
 endcase
 endmodule
-
 
 

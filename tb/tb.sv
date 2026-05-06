@@ -1,7 +1,7 @@
 module tb;
-  parameter  WIDTH=8, SIZE_KER = 5,SIZE_WINDOW=6;
+  parameter  WIDTH=8, SIZE_KER =3,SIZE_WINDOW=6;
   localparam OUT_SIZE = SIZE_WINDOW - SIZE_KER + 1;
-  localparam OUT_SIZE_NORM = $clog2(2**((OUT_SIZE)*(OUT_SIZE)));
+  localparam OUT_SIZE_NORM = OUT_SIZE*OUT_SIZE;
 logic nrst,clk;
 
 logic [WIDTH-1:0] imagem[SIZE_WINDOW-1:0][SIZE_WINDOW-1:0];
@@ -17,8 +17,11 @@ initial begin
     clk=0;
     #2 nrst=0;
     #500ps nrst=1;
-
-
+    if($signed($abs(OUT_SIZE_NORM-SIZE_KER*SIZE_KER)) <0)begin
+            $display("Escolha uma subjanela maior %d %d %d",OUT_SIZE_NORM,SIZE_KER*SIZE_KER,OUT_SIZE_NORM-SIZE_KER*SIZE_KER);
+            $finish;
+    end
+    $display("Tamanho da matriz de saída %d",OUT_SIZE_NORM);
     
     
     for(integer  i =0; i < SIZE_WINDOW; i++)begin
@@ -31,7 +34,13 @@ initial begin
     end
 
 end
-
+initial begin
+    if (SIZE_KER >= SIZE_WINDOW)
+        $fatal(2, "img2row: SIZE_KER (%0d) deve ser < SIZE_WINDOW (%0d)", SIZE_KER, SIZE_WINDOW);
+    if (OUT_SIZE_NORM < SIZE_KER*SIZE_KER)
+        $fatal(2, "img2row: OUT_SIZE_NORM (%0d) < SIZE_KER^2 (%0d) — zero_pad negativo", 
+               OUT_SIZE_NORM, SIZE_KER*SIZE_KER);
+end
 always #2 clk =~clk;
 
 always_ff@(posedge clk)begin
@@ -63,7 +72,7 @@ img2row #(.WIDTH(WIDTH),.SIZE_KER(SIZE_KER),.SIZE_WINDOW(SIZE_WINDOW))inst0(
       .valid_i  (valid_i)                ,
       .ready_o  ()                ,
       .rvalid_o (rvalid_o)                ,
-      .rready_i (0)                ,
+      .rready_i (1'b0)                ,
       .img      (imagem) ,
       .colout      (col)              
 );

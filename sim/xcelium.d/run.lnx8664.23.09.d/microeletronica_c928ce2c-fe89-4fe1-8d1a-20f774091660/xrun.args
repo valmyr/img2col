@@ -1,0 +1,9 @@
+//
+// File created by:  xrun
+// Do not modify this file
+//
+../tb/tb.sv
+../rtl/im2col.sv
+-access
++rwc
+-gui
