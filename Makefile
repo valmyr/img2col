@@ -5,4 +5,4 @@ run:
 
 clean:
 	rm -rf csrc simv simv.daidir ucli.key
-	cd ./sim/;rm -rf *
+	cd ./sim/;rm -rf * rm -rf .*
