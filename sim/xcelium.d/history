@@ -1,6 +1,0 @@
-//
-// File created by:  xrun
-// Do not modify this file
-
-s1::(10May2026:17:47:06):( xrun ../tb/tb.sv ../rtl/im2col.sv )
-s2::(10May2026:17:51:11):( xrun ../tb/tb.sv ../rtl/im2col.sv -access +rwc -gui )
