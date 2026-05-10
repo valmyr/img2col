@@ -1,0 +1,97 @@
+*** Message Type: info ***
+When: Sun May 10 17:26:40 -03 2026
+SimVision started.
+Version: TOOL:  simvision(64)   23.09-s003
+User: valmir.silva
+Host: microeletronica
+Platform: Linux/x86_64/4.18.0-477.27.1.el8_8.x86_64
+Started: Sun May 10 17:26:40 -03 2026
+Command: /Tools/cadence/XCELIUM2309/tools.lnx86/simvision/bin/64bit/simvision.exe -connect dc:microeletronica:43269 -64BIT -nocopyright
+Work Directory: /home/valmir.silva/Desktop/im2col/git/SystolicCore/rtl/im2col/sim
+ 
+*** Message Type: info ***
+When: Sun May 10 17:26:41 -03 2026
+Create browser window: "Design Browser 1"
+ 
+*** Message Type: info ***
+When: Sun May 10 17:26:42 -03 2026
+Create console window: "Console"
+ 
+*** Message Type: info ***
+When: Sun May 10 17:26:43 -03 2026
+Connect to Simulator
+      Design: worklib.tb:sv
+   Languages: verilog
+   Simulator: XM-Sim
+     Version: TOOL:      xmsim(64)       23.09-s003
+        User: valmir.silva
+        Host: microeletronica
+Time Started: Sun May 10 17:26:40 -03 2026
+  Process ID: 1355433
+   Directory: /home/valmir.silva/Desktop/im2col/git/SystolicCore/rtl/im2col/sim
+     Command: xrun ../tb/tb.sv ../rtl/im2col.sv -access +rwc -gui
+
+ 
+*** Message Type: info ***
+When: Sun May 10 17:26:44 -03 2026
+Create utility window: "Properties"
+ 
+*** Message Type: info ***
+When: Sun May 10 17:26:58 -03 2026
+Create waveform window: "Waveform 1"
+ 
+*** Message Type: error ***
+When: Sun May 10 17:50:14 -03 2026
+couldn't open "/home/valmir.silva/Desktop/im2col/git/SystolicCore/rtl/im2col/sim/.simvision/1355491_valmir.silva__autosave.tcl.svcf": no such file or directory
+    while executing
+"# Compiled -- no source code available
+error "called a copy of a compiled script""
+    (procedure "::savescript::autosave" line 1)
+    invoked from within
+"::savescript::autosave $filename"
+    (object "::application" method "::Application::auto-save" body line 18)
+    invoked from within
+"::application auto-save"
+    (in namespace inscope "::Application" script line 1)
+    invoked from within
+"namespace inscope ::Application {::application auto-save}"
+    ("after" script)
+ 
+*** Message Type: error ***
+When: Sun May 10 17:50:16 -03 2026
+couldn't open "/home/valmir.silva/Desktop/im2col/git/SystolicCore/rtl/im2col/sim/.simvision/1355491_valmir.silva__autosave.tcl.svcf": no such file or directory
+    while executing
+"# Compiled -- no source code available
+error "called a copy of a compiled script""
+    (procedure "::savescript::autosave" line 1)
+    invoked from within
+"::savescript::autosave $filename"
+    (object "::application" method "::Application::auto-save" body line 18)
+    invoked from within
+"::application auto-save"
+    (in namespace inscope "::Application" script line 1)
+    invoked from within
+"namespace inscope ::Application {::application auto-save}"
+    ("after" script)
+ 
+*** Message Type: error ***
+When: Sun May 10 17:50:17 -03 2026
+couldn't open "/home/valmir.silva/Desktop/im2col/git/SystolicCore/rtl/im2col/sim/.simvision/1355491_valmir.silva__autosave.tcl.svcf": no such file or directory
+    while executing
+"# Compiled -- no source code available
+error "called a copy of a compiled script""
+    (procedure "::savescript::autosave" line 1)
+    invoked from within
+"::savescript::autosave $filename"
+    (object "::application" method "::Application::auto-save" body line 18)
+    invoked from within
+"::application auto-save"
+    (in namespace inscope "::Application" script line 1)
+    invoked from within
+"namespace inscope ::Application {::application auto-save}"
+    ("after" script)
+ 
+*** Message Type: info ***
+When: Sun May 10 17:50:18 -03 2026
+Create source window: "Source Browser 1"
+ 
