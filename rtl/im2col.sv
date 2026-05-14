@@ -15,14 +15,15 @@ module img2row#
   localparam OUT_SIZE = SIZE_WINDOW - SIZE_KER + 1,
   localparam OUT_SIZE_NORM = $clog2(2**((OUT_SIZE)*(OUT_SIZE)))
 )(
-      input  logic              clk                                           ,
-      input  logic              rst_n_sync                                    ,
-      input  logic              valid_i                                       ,
-      output logic              ready_o                                       ,
-      output logic              rvalid_o                                      ,
-      input  logic              rready_i                                      ,
-      input  logic  [WIDTH-1:0] img [SIZE_WINDOW-1:0][SIZE_WINDOW-1:0]        ,
-      output logic  [WIDTH-1:0] colout [OUT_SIZE_NORM-1:0][OUT_SIZE_NORM-1:0]
+      input  logic              clk                                                 ,
+      input  logic              rst_n_sync                                          ,
+      input  logic              valid_i                                             ,
+      output logic              ready_o                                             ,
+      output logic              rvalid_o                                            ,
+      input  logic              rready_i                                            ,
+      input  logic  [WIDTH-1:0] img        [SIZE_WINDOW-1:0][SIZE_WINDOW-1:0]       ,
+      output logic  [WIDTH-1:0] colout     [OUT_SIZE_NORM-1:0][OUT_SIZE_NORM-1:0]   ,
+      output logic  [WIDTH-1:0] colout_tsnp[OUT_SIZE_NORM-1:0][OUT_SIZE_NORM-1:0]
 
 );
 logic [$clog2(SIZE_WINDOW)-1:0] row, col;
@@ -135,4 +136,11 @@ always_comb case(currentStateTransformUnit)
             col_next = 0;
       end
 endcase
+generate
+      genvar iii_t,jjj_t;
+
+      for(iii_t=0; iii_t < OUT_SIZE_NORM; iii_t++)
+            for(jjj_t=0; jjj_t < OUT_SIZE_NORM; jjj_t++)
+                  assign colout_tsnp[iii_t][jjj_t] = colout[jjj_t][iii_t];
+endgenerate
 endmodule
