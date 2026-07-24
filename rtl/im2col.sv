@@ -11,9 +11,8 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 module img2row#
 (
-  parameter  WIDTH=4, SIZE_KER = 3,SIZE_WINDOW=6,STRIDE= 3,
-  localparam OUT_SIZE = SIZE_WINDOW - SIZE_KER + 1,
-  localparam OUT_SIZE_NORM = $clog2(2**((OUT_SIZE)*(OUT_SIZE)))
+  parameter  WIDTH=4, SIZE_KER = 3,SIZE_WINDOW=6,STRIDE= 3,OUT_SIZE_NORM = 16,
+  localparam OUT_SIZE = SIZE_WINDOW - SIZE_KER + 1
 )(
       input  logic              clk                                                 ,
       input  logic              rst_n_sync                                          ,
@@ -31,6 +30,9 @@ logic [$clog2(SIZE_WINDOW)-1:0] row_next, col_next;
 logic [$clog2(SIZE_WINDOW*SIZE_WINDOW)-1:0] patch_idx, patch_idx_next;
 logic is_row_oob;
 logic is_col_oob;
+
+logic  [WIDTH-1:0] colout_reg     [OUT_SIZE_NORM-1:0][OUT_SIZE_NORM-1:0]  ;
+
 
 logic [WIDTH-1:0]                   window0      [OUT_SIZE-STRIDE:0][SIZE_KER*SIZE_KER-1:0];
 logic [WIDTH*SIZE_KER*SIZE_KER-1:0] window_f0    [OUT_SIZE-STRIDE:0];
@@ -54,21 +56,22 @@ generate
             assign window_f0[i_flatten] = {>>{window0[i_flatten]}};             
       end
 endgenerate
-always_ff@(posedge clk)begin
+always_ff@(posedge clk, negedge rst_n_sync)begin
       if(!rst_n_sync)begin
             row <= '{default:'0};
             col <= '{default:'0};
             patch_idx <= '{default:'0};
             currentStateTransformUnit <= IDLE;
-            colout <='{default: '{default: '0}};
+            colout <='{default: '0};
+            colout_reg <='{default: '0};
       end else begin
             row <= row_next;
             col <= col_next;
             patch_idx <= (OUT_SIZE)*row + col;
-
             for(int i =0; i < OUT_SIZE-STRIDE+1; i++)begin
-                  {>>(WIDTH){colout[patch_idx_next+i*OUT_SIZE]}}  <={zero_pad, window_f0[i]} ;
+                  {>>(WIDTH){colout_reg[patch_idx_next+i*OUT_SIZE]}}  <={zero_pad, window_f0[i]} ;
             end
+            colout <=  colout_reg ;
             currentStateTransformUnit <= nextStateTransformUnit;
       end
 end
